@@ -1,0 +1,67 @@
+name: campus_navigation
+description: "A new Flutter project."
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.4.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  flutter_native_splash: ^2.4.1
+  riverpod: ^2.5.1
+  flutter_riverpod: ^2.5.1
+  shared_preferences: ^2.2.3
+  flutter_smart_dialog: ^4.9.7+9
+  firebase_core: ^3.2.0
+  cloud_firestore: ^5.1.0
+  firebase_auth: ^5.1.2
+  firebase_storage: ^12.1.1
+  google_maps_flutter: ^2.7.0
+  flutter_polyline_points: ^2.1.0
+  location: ^7.0.0
+  url_launcher: ^6.3.0
+  bottom_navy_bar: ^6.1.0
+  google_fonts: ^6.2.1
+  font_awesome_flutter: ^10.7.0
+  
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  flutter_launcher_icons: "^0.13.1"
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
+    - assets/images/
+
+
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/images/splash.png
+  image_web: assets/images/splash.png
+  android: true
+  ios: true
+  web: true
+  android_12:
+#dart run flutter_native_splash:create
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: false
+  image_path: "assets/images/icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "assets/images/icon.png"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+#    flutter pub run flutter_launcher_icons
