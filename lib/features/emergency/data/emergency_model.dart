@@ -1,29 +1,33 @@
 import 'dart:convert';
-import 'package:flutter/widgets.dart';
 
 class EmergencyModel {
+  String id;
   String indexNumber;
   String name;
   String phoneNumber;
   String gender;
-  String image;
+  String? image;
   double lat;
   double lng;
+  String status;
   String description;
   int? createdAt;
   EmergencyModel({
+    required this.id,
     required this.indexNumber,
     required this.name,
     required this.phoneNumber,
     required this.gender,
-    required this.image,
+     this.image,
     required this.lat,
     required this.lng,
+    this.status = 'pending',
     required this.description,
     this.createdAt,
   });
 
   EmergencyModel copyWith({
+    String? id,
     String? indexNumber,
     String? name,
     String? phoneNumber,
@@ -31,10 +35,12 @@ class EmergencyModel {
     String? image,
     double? lat,
     double? lng,
+    String? status,
     String? description,
-    ValueGetter<int?>? createdAt,
+    int? createdAt,
   }) {
     return EmergencyModel(
+      id: id ?? this.id,
       indexNumber: indexNumber ?? this.indexNumber,
       name: name ?? this.name,
       phoneNumber: phoneNumber ?? this.phoneNumber,
@@ -42,34 +48,45 @@ class EmergencyModel {
       image: image ?? this.image,
       lat: lat ?? this.lat,
       lng: lng ?? this.lng,
+      status: status ?? this.status,
       description: description ?? this.description,
-      createdAt: createdAt != null ? createdAt() : this.createdAt,
+      createdAt: createdAt ?? this.createdAt,
     );
   }
 
   Map<String, dynamic> toMap() {
-    return {
-      'indexNumber': indexNumber,
-      'name': name,
-      'phoneNumber': phoneNumber,
-      'gender': gender,
-      'image': image,
-      'lat': lat,
-      'lng': lng,
-      'description': description,
-      'createdAt': createdAt,
-    };
+    final result = <String, dynamic>{};
+  
+    result.addAll({'id': id});
+    result.addAll({'indexNumber': indexNumber});
+    result.addAll({'name': name});
+    result.addAll({'phoneNumber': phoneNumber});
+    result.addAll({'gender': gender});
+    if(image != null){
+      result.addAll({'image': image});
+    }
+    result.addAll({'lat': lat});
+    result.addAll({'lng': lng});
+    result.addAll({'status': status});
+    result.addAll({'description': description});
+    if(createdAt != null){
+      result.addAll({'createdAt': createdAt});
+    }
+  
+    return result;
   }
 
   factory EmergencyModel.fromMap(Map<String, dynamic> map) {
     return EmergencyModel(
+      id: map['id'] ?? '',
       indexNumber: map['indexNumber'] ?? '',
       name: map['name'] ?? '',
       phoneNumber: map['phoneNumber'] ?? '',
       gender: map['gender'] ?? '',
-      image: map['image'] ?? '',
+      image: map['image'],
       lat: map['lat']?.toDouble() ?? 0.0,
       lng: map['lng']?.toDouble() ?? 0.0,
+      status: map['status'] ?? '',
       description: map['description'] ?? '',
       createdAt: map['createdAt']?.toInt(),
     );
@@ -77,11 +94,12 @@ class EmergencyModel {
 
   String toJson() => json.encode(toMap());
 
-  factory EmergencyModel.fromJson(String source) => EmergencyModel.fromMap(json.decode(source));
+  factory EmergencyModel.fromJson(String source) =>
+      EmergencyModel.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'EmergencyModel(indexNumber: $indexNumber, name: $name, phoneNumber: $phoneNumber, gender: $gender, image: $image, lat: $lat, lng: $lng, description: $description, createdAt: $createdAt)';
+    return 'EmergencyModel(id: $id, indexNumber: $indexNumber, name: $name, phoneNumber: $phoneNumber, gender: $gender, image: $image, lat: $lat, lng: $lng, status: $status, description: $description, createdAt: $createdAt)';
   }
 
   @override
@@ -89,6 +107,7 @@ class EmergencyModel {
     if (identical(this, other)) return true;
   
     return other is EmergencyModel &&
+      other.id == id &&
       other.indexNumber == indexNumber &&
       other.name == name &&
       other.phoneNumber == phoneNumber &&
@@ -96,19 +115,22 @@ class EmergencyModel {
       other.image == image &&
       other.lat == lat &&
       other.lng == lng &&
+      other.status == status &&
       other.description == description &&
       other.createdAt == createdAt;
   }
 
   @override
   int get hashCode {
-    return indexNumber.hashCode ^
+    return id.hashCode ^
+      indexNumber.hashCode ^
       name.hashCode ^
       phoneNumber.hashCode ^
       gender.hashCode ^
       image.hashCode ^
       lat.hashCode ^
       lng.hashCode ^
+      status.hashCode ^
       description.hashCode ^
       createdAt.hashCode;
   }

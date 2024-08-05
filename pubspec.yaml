@@ -29,6 +29,10 @@ dependencies:
   bottom_navy_bar: ^6.1.0
   google_fonts: ^6.2.1
   font_awesome_flutter: ^10.7.0
+  go_router: ^14.2.2
+  hive_flutter: ^1.1.0
+  url_strategy: ^0.3.0
+  data_table_2: ^2.5.15
   
 
 dev_dependencies:
