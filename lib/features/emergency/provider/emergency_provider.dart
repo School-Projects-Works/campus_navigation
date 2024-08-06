@@ -126,6 +126,7 @@ class NewEmergency extends StateNotifier<EmergencyModel> {
       var url = await EmergencyServices.uploadImage(image);
       if (url.isNotEmpty) {
         state = state.copyWith(image: url);
+        ref.read(emergencyImageProvider.notifier).state = null;
       }
     }
     if (state.lat == 0.0 || state.lng == 0.0) {

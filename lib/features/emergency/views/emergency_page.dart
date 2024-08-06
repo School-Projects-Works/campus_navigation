@@ -6,6 +6,7 @@ import 'package:campus_navigation/utils/colors.dart';
 import 'package:campus_navigation/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
 
 class EmergencyPage extends ConsumerStatefulWidget {
@@ -148,6 +149,72 @@ void getLocation()async{
                   },
                 ),
                 const SizedBox(height: 22),
+                //pick image
+                TextButton(onPressed: (){
+                 //show source snackbar
+                 showModalBottomSheet(
+                   context: context,
+                   builder: (context) => Column(
+                     mainAxisSize: MainAxisSize.min,
+                     children: [
+                       ListTile(
+                         leading: const Icon(Icons.camera),
+                         title: const Text('Camera'),
+                         onTap: (){
+                          _pickImage('camera');
+                         },
+                       ),
+                       ListTile(
+                         leading: const Icon(Icons.image),
+                         title: const Text('Gallery'),
+                         onTap: (){
+                          _pickImage('gallery');
+                         },
+                       ),
+                     ],
+                   ),
+                 );
+                  
+                  
+                }, child: const Text('Pick Image')),
+                if(ref.watch(emergencyImageProvider)!=null)
+                 Container(
+                                    width: 80,
+                                    height: 80,
+                                    margin:
+                                        const EdgeInsets.symmetric(vertical: 3),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        border: Border.all(color: Colors.black),
+                                        image: DecorationImage(
+                                            image: MemoryImage(
+                                                ref.watch(emergencyImageProvider)!),
+                                            fit: BoxFit.cover)),
+                                    //delete button
+                                    child: Align(
+                                      alignment: Alignment.topRight,
+                                      child: InkWell(
+                                        onTap: () {
+                                          ref.read(emergencyImageProvider.notifier).state=null;
+                                        },
+                                        child: Container(
+                                          padding: const EdgeInsets.all(5),
+                                          decoration: BoxDecoration(
+                                              color:
+                                                  Colors.black.withOpacity(.5),
+                                              shape: BoxShape.circle),
+                                          child: const Icon(
+                                            Icons.cancel,
+                                            color: Colors.white,
+                                            size: 18,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                             
+
+                const SizedBox(height: 22),
                 CustomButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
@@ -163,5 +230,16 @@ void getLocation()async{
             ),
           ),
         ));
+  }
+  
+  void _pickImage(String source)async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(
+      source: source == 'camera' ? ImageSource.camera : ImageSource.gallery,
+    );
+    if (pickedFile != null) {
+      var imageByte = await pickedFile.readAsBytes();
+      ref.read(emergencyImageProvider.notifier).state=imageByte;
+    }
   }
 }
