@@ -98,7 +98,7 @@ class CustomDialog {
   static void showSuccess({required String message}) {
     SmartDialog.show(
       maskColor: Colors.transparent,
-      builder: (_) {
+      builder: (context) {
         
         return Container(
           width: 450,
@@ -150,7 +150,7 @@ class CustomDialog {
                       child: TextButton(
                         style: TextButton.styleFrom(
                           foregroundColor:
-                              Theme.of(_).textTheme.bodyLarge!.color,
+                              Theme.of(context).textTheme.bodyLarge!.color,
                         ),
                         onPressed: () => SmartDialog.dismiss(),
                         child: const Text(

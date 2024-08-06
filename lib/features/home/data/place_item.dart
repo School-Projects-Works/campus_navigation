@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:campus_navigation/features/home/services/places_services.dart';
 import 'package:flutter/widgets.dart';
 
 class PlaceItem {
@@ -21,6 +19,17 @@ class PlaceItem {
     required this.published,
   });
 
+static PlaceItem defualt(){
+  return PlaceItem(
+    id: '',
+    name: '',
+    lat: 0.0,
+    lng: 0.0,
+    image: '',
+    description: '',
+    published: false,
+  );
+}
   PlaceItem copyWith({
     String? id,
     String? name,
@@ -98,29 +107,5 @@ class PlaceItem {
         image.hashCode ^
         description.hashCode ^
         published.hashCode;
-  }
-
-  static List<PlaceItem> dummyData() {
-    List<PlaceItem> list = [];
-    return [
-      PlaceItem(
-          id: PlacesServices.getPlaceId(),
-          name: 'Main Building',
-          image:
-              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsqROZ4fBcP4pK8TEjDOXsZ34ngSjP7jSH0A&s',
-          lat: 6.697565095577939,
-          lng: -1.6815263097754813,
-          description: 'Main Building',
-          published: true),
-      PlaceItem(
-          id: PlacesServices.getPlaceId(),
-          name: 'Library',
-          image:
-              'https://onuaonline.com/wp-content/uploads/2021/08/AAMUSTED-library.jpg',
-          lat: 6.698227172213884,
-          lng: -1.6818030880659585,
-          description: 'Library',
-          published: true),
-    ];
   }
 }

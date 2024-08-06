@@ -1,3 +1,4 @@
+import 'package:campus_navigation/core/custom_dialog.dart';
 import 'package:campus_navigation/utils/colors.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
@@ -62,11 +63,11 @@ class _EmergenciesPageState extends ConsumerState<EmergenciesPage> {
                     size: ColumnSize.S,
                     fixedWidth: styles.isMobile ? null : 80),
                 DataColumn2(
-                    label: Text(
-                      'INDEX NUMBER',
-                      style: titleStyles,
-                    ),
-                    fixedWidth: styles.largerThanMobile ? 100 : null),
+                  label: Text(
+                    'TITLE',
+                    style: titleStyles,
+                  ),
+                ),
                 DataColumn2(
                   label: Text('Name'.toUpperCase()),
                   size: ColumnSize.S,
@@ -78,20 +79,17 @@ class _EmergenciesPageState extends ConsumerState<EmergenciesPage> {
                 DataColumn2(
                     label: Text('Phone'.toUpperCase()),
                     size: ColumnSize.M,
-                    fixedWidth: styles.isMobile ? null : 100),
+                    fixedWidth: styles.isMobile ? null : 120),
                 DataColumn2(
-                    label: Text('gennder'.toString()),
+                    label: Text('gender'.toUpperCase()),
                     size: ColumnSize.S,
-                    fixedWidth: styles.isMobile ? null : 80),
+                    fixedWidth: styles.isMobile ? null : 120),
                 DataColumn2(
                   label: Text('Status'.toUpperCase()),
-                  size: ColumnSize.S,
-                  fixedWidth: styles.isMobile ? null : 100,
+                  fixedWidth: styles.isMobile ? null : 140,
                 ),
                 DataColumn2(
                   label: Text('Action'.toUpperCase()),
-                  size: ColumnSize.S,
-                  fixedWidth: styles.isMobile ? null : 150,
                 ),
               ],
               rows: List<DataRow>.generate(emergencies.length, (index) {
@@ -120,13 +118,13 @@ class _EmergenciesPageState extends ConsumerState<EmergenciesPage> {
                         ),
                       ),
                     ),
-                    DataCell(Text(emergency.indexNumber, style: rowStyles)),
+                    DataCell(Text(emergency.title, style: rowStyles)),
                     DataCell(Text(emergency.name, style: rowStyles)),
                     DataCell(Text(emergency.description, style: rowStyles)),
                     DataCell(Text(emergency.phoneNumber, style: rowStyles)),
                     DataCell(Text(emergency.gender, style: rowStyles)),
                     DataCell(Container(
-                        width: 90,
+                        width: 120,
                         // alignment: Alignment.center,
                         padding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 15),
@@ -143,8 +141,28 @@ class _EmergenciesPageState extends ConsumerState<EmergenciesPage> {
                       onSelected: (value) {
                         if (value == 'view') {
                           // view the emergency
-                        } else {
+                        } else if (value == 'ignore') {
+                          CustomDialog.showInfo(
+                              message:
+                                  'Are you sure you want to ignore this emergency?',
+                              onPressed: () {
+                                ref
+                                    .read(emergencyProvider.notifier)
+                                    .ignore(emergency);
+                              },
+                              buttonText: 'Ignore');
+
                           // respond to the emergency
+                        } else if (value == 'respond') {
+                          CustomDialog.showInfo(
+                              message:
+                                  'Are you sure you want to respond to this emergency?',
+                              onPressed: () {
+                                ref
+                                    .read(emergencyProvider.notifier)
+                                    .respond(emergency);
+                              },
+                              buttonText: 'Respond');
                         }
                       },
                       icon: const Icon(Icons.apps),
@@ -158,6 +176,11 @@ class _EmergenciesPageState extends ConsumerState<EmergenciesPage> {
                             const PopupMenuItem(
                               value: 'respond',
                               child: Text('Respond'),
+                            ),
+                          if (emergency.status == 'pending')
+                            const PopupMenuItem(
+                              value: 'ignore',
+                              child: Text('Ignore'),
                             ),
                         ];
                       },

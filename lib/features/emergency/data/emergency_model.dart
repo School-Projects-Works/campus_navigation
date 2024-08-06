@@ -2,7 +2,7 @@ import 'dart:convert';
 
 class EmergencyModel {
   String id;
-  String indexNumber;
+  String title;
   String name;
   String phoneNumber;
   String gender;
@@ -14,11 +14,11 @@ class EmergencyModel {
   int? createdAt;
   EmergencyModel({
     required this.id,
-    required this.indexNumber,
+    required this.title,
     required this.name,
     required this.phoneNumber,
     required this.gender,
-     this.image,
+    this.image,
     required this.lat,
     required this.lng,
     this.status = 'pending',
@@ -28,7 +28,7 @@ class EmergencyModel {
 
   EmergencyModel copyWith({
     String? id,
-    String? indexNumber,
+    String? title,
     String? name,
     String? phoneNumber,
     String? gender,
@@ -41,7 +41,7 @@ class EmergencyModel {
   }) {
     return EmergencyModel(
       id: id ?? this.id,
-      indexNumber: indexNumber ?? this.indexNumber,
+      title: title ?? this.title,
       name: name ?? this.name,
       phoneNumber: phoneNumber ?? this.phoneNumber,
       gender: gender ?? this.gender,
@@ -56,30 +56,30 @@ class EmergencyModel {
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
-  
+
     result.addAll({'id': id});
-    result.addAll({'indexNumber': indexNumber});
+    result.addAll({'title': title});
     result.addAll({'name': name});
     result.addAll({'phoneNumber': phoneNumber});
     result.addAll({'gender': gender});
-    if(image != null){
+    if (image != null) {
       result.addAll({'image': image});
     }
     result.addAll({'lat': lat});
     result.addAll({'lng': lng});
     result.addAll({'status': status});
     result.addAll({'description': description});
-    if(createdAt != null){
+    if (createdAt != null) {
       result.addAll({'createdAt': createdAt});
     }
-  
+
     return result;
   }
 
   factory EmergencyModel.fromMap(Map<String, dynamic> map) {
     return EmergencyModel(
       id: map['id'] ?? '',
-      indexNumber: map['indexNumber'] ?? '',
+      title: map['title'] ?? '',
       name: map['name'] ?? '',
       phoneNumber: map['phoneNumber'] ?? '',
       gender: map['gender'] ?? '',
@@ -99,39 +99,52 @@ class EmergencyModel {
 
   @override
   String toString() {
-    return 'EmergencyModel(id: $id, indexNumber: $indexNumber, name: $name, phoneNumber: $phoneNumber, gender: $gender, image: $image, lat: $lat, lng: $lng, status: $status, description: $description, createdAt: $createdAt)';
+    return 'EmergencyModel(id: $id, title: $title, name: $name, phoneNumber: $phoneNumber, gender: $gender, image: $image, lat: $lat, lng: $lng, status: $status, description: $description, createdAt: $createdAt)';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
+
     return other is EmergencyModel &&
-      other.id == id &&
-      other.indexNumber == indexNumber &&
-      other.name == name &&
-      other.phoneNumber == phoneNumber &&
-      other.gender == gender &&
-      other.image == image &&
-      other.lat == lat &&
-      other.lng == lng &&
-      other.status == status &&
-      other.description == description &&
-      other.createdAt == createdAt;
+        other.id == id &&
+        other.title == title &&
+        other.name == name &&
+        other.phoneNumber == phoneNumber &&
+        other.gender == gender &&
+        other.image == image &&
+        other.lat == lat &&
+        other.lng == lng &&
+        other.status == status &&
+        other.description == description &&
+        other.createdAt == createdAt;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      indexNumber.hashCode ^
-      name.hashCode ^
-      phoneNumber.hashCode ^
-      gender.hashCode ^
-      image.hashCode ^
-      lat.hashCode ^
-      lng.hashCode ^
-      status.hashCode ^
-      description.hashCode ^
-      createdAt.hashCode;
+        title.hashCode ^
+        name.hashCode ^
+        phoneNumber.hashCode ^
+        gender.hashCode ^
+        image.hashCode ^
+        lat.hashCode ^
+        lng.hashCode ^
+        status.hashCode ^
+        description.hashCode ^
+        createdAt.hashCode;
+  }
+
+  static EmergencyModel defualt() {
+    return EmergencyModel(
+      id: '',
+      title: '',
+      name: '',
+      phoneNumber: '',
+      gender: '',
+      lat: 0.0,
+      lng: 0.0,
+      description: '',
+    );
   }
 }

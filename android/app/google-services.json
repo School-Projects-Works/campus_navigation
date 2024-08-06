@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "795679763491",
-    "project_id": "campus-navigation-3b54d",
-    "storage_bucket": "campus-navigation-3b54d.appspot.com"
+    "project_number": "460653253180",
+    "project_id": "campus-navigation-90709",
+    "storage_bucket": "campus-navigation-90709.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:795679763491:android:d4c0ae559ec3ced42b5596",
+        "mobilesdk_app_id": "1:460653253180:android:f6cd2fca98f437b654a939",
         "android_client_info": {
           "package_name": "com.example.campus_navigation"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDuSlds2lTKaCqobvzIsbbokoatzUSxR0c"
+          "current_key": "AIzaSyAzCx1u7e5JWjSBtR1xz_D9y6B52Y-BX84"
         }
       ],
       "services": {

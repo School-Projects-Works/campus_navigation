@@ -2,9 +2,10 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:campus_navigation/features/home/provider/home_page_provider.dart';
 import 'package:campus_navigation/features/home/views/home_page.dart';
 import 'package:campus_navigation/generated/assets.dart';
-import 'package:campus_navigation/utils/styles.dart';
+import 'package:campus_navigation/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../contacts/contact_page.dart';
 import '../../emergency/views/emergency_page.dart';
@@ -19,8 +20,6 @@ class MainPage extends ConsumerStatefulWidget {
 class _MainPageState extends ConsumerState<MainPage> {
   @override
   Widget build(BuildContext context) {
-    var styles = Styles(context);
-
     return SafeArea(
         child: Scaffold(
             bottomNavigationBar: BottomNavyBar(
@@ -42,14 +41,6 @@ class _MainPageState extends ConsumerState<MainPage> {
             appBar: AppBar(
               elevation: 3,
               backgroundColor: Colors.white,
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    ///ref.read(selectedPageProvider.notifier).state = 0;
-                  },
-                  child: const Text('Admin'),
-                ),
-              ],
               title: Row(
                 children: [
                   Image.asset(
@@ -59,7 +50,10 @@ class _MainPageState extends ConsumerState<MainPage> {
                   const SizedBox(
                     width: 10,
                   ),
-                  const Text('Campus Navigator'),
+                  Text(
+                    'Campus Navigator',
+                    style: GoogleFonts.laila(color: primaryColor),
+                  ),
                 ],
               ),
             ),

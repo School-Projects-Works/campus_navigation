@@ -1,5 +1,8 @@
+import 'dart:typed_data';
+
 import 'package:campus_navigation/features/emergency/data/emergency_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class EmergencyServices{
   static final  FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -41,5 +44,15 @@ static String getNewId() {
         return EmergencyModel.fromMap(doc.data() as Map<String, dynamic>);
       }).toList();
     });
+  }
+
+  static Future<String>uploadImage(Uint8List image)async {
+    try {
+      var ref = FirebaseStorage.instance.ref().child('emergencies/${getNewId()}');
+      await ref.putData(image, SettableMetadata(contentType: 'image/jpeg'));
+      return await ref.getDownloadURL();
+    } catch (e) {
+      return '';
+    }
   }
 }

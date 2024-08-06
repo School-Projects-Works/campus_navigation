@@ -1,12 +1,11 @@
 import 'package:campus_navigation/admin/dashboard/emergencies_page.dart';
 import 'package:campus_navigation/admin/dashboard/home_page.dart';
 import 'package:campus_navigation/admin/dashboard/main_page.dart';
-import 'package:campus_navigation/features/contacts/contact_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-
 import '../admin/auth/views/login_page.dart';
+import '../admin/dashboard/dashboard_contact_page.dart';
 import '../admin/dashboard/locations_page.dart';
 import 'router_items.dart';
 
@@ -56,7 +55,7 @@ class MyRouter {
                   GoRoute(
                       path: RouterItem.contactsRoute.path,
                       builder: (context, state) {
-                        return const ContactPage();
+                        return const DashboardContactPage();
                       }),
                   GoRoute(
                       path: RouterItem.locationsRoute.path,
