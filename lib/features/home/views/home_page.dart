@@ -18,59 +18,61 @@ class _HomePageState extends ConsumerState<HomePage> {
     return locationnStream.when(
         data: (data) {
           var locations = ref.watch(locationProvider).filter;
-          return Column(
-            children: [
-              Wrap(
-                spacing: 10,
-                runAlignment: WrapAlignment.center,
-                alignment: WrapAlignment.center,
-                runSpacing: 10,
-                children: [
-                   Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: CustomTextFields(
-                      hintText: 'Search for a place',
-                      onChanged: (p0) => {
-                        ref.read(locationProvider.notifier).filter(p0),
-                      },
-                      suffixIcon: const Icon(Icons.search),
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                Wrap(
+                  spacing: 10,
+                  runAlignment: WrapAlignment.center,
+                  alignment: WrapAlignment.center,
+                  runSpacing: 10,
+                  children: [
+                     Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: CustomTextFields(
+                        hintText: 'Search for a place',
+                        onChanged: (p0) => {
+                          ref.read(locationProvider.notifier).filter(p0),
+                        },
+                        suffixIcon: const Icon(Icons.search),
+                      ),
                     ),
-                  ),
-                  for (int i = 0; i < locations.length; i++)
-                    InkWell(
-                      onTap: () {
-                        //navigate to place details
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => MapRoutingPage(
-                                  lat: locations[i].lat,
-                                  lng: locations[i].lng,
-                                )));
-                      },
-                      child: Container(
-                          width: 170,
-                          height: 200,
-                          alignment: Alignment.bottomCenter,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              image: DecorationImage(
-                                  image: NetworkImage(
-                                      locations[i].image),
-                                  fit: BoxFit.cover)),
-                          child: Container(
-                              color: Colors.black.withOpacity(0.8),
-                              width: double.infinity,
-                              padding: const EdgeInsets.all(8),
-                              child: Text(
-                                locations[i].name,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.white,
-                                ),
-                              ))),
-                    )
-                ],
-              )
-            ],
+                    for (int i = 0; i < locations.length; i++)
+                      InkWell(
+                        onTap: () {
+                          //navigate to place details
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => MapRoutingPage(
+                                    lat: locations[i].lat,
+                                    lng: locations[i].lng,
+                                  )));
+                        },
+                        child: Container(
+                            width: 170,
+                            height: 200,
+                            alignment: Alignment.bottomCenter,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                image: DecorationImage(
+                                    image: NetworkImage(
+                                        locations[i].image),
+                                    fit: BoxFit.cover)),
+                            child: Container(
+                                color: Colors.black.withOpacity(0.8),
+                                width: double.infinity,
+                                padding: const EdgeInsets.all(8),
+                                child: Text(
+                                  locations[i].name,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.white,
+                                  ),
+                                ))),
+                      )
+                  ],
+                )
+              ],
+            ),
           );
         },
         loading: () =>
